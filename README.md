@@ -1,6 +1,4 @@
 # APP_
-Algumas classes para padronizar a comunicação entre front e back end, incluindo a passagem das exceções.
-
 ### Componentes
 > lwc: `<c-call-app-service></c-call-app-service>`
 > <p></p>
