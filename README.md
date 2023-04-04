@@ -1,12 +1,102 @@
 # APP_
-Algumas classes para padronizar a comunicação entre front e back end, incluindo a passagem das exceções e  um modelo geral de adapter
+Algumas classes para padronizar a comunicação entre front e back end, incluindo a passagem das exceções.
 
-<div style="display:flex; text-align:center;">
-  <img src="https://user-images.githubusercontent.com/79648814/229044234-56837a60-c8c0-4470-a23b-76bdeba8a23d.png" width="50%"></img>
-  <img src="https://user-images.githubusercontent.com/79648814/229044377-22a43a53-39b4-416f-bf3b-91d387286354.png" width="50%"></img>
-  <img src="https://user-images.githubusercontent.com/79648814/229044139-a21dfdf9-7189-4651-9263-f7fdc071c096.png" width="50%"></img>
-  <img src="https://user-images.githubusercontent.com/79648814/229044480-12e63822-c153-4c0b-8f97-a318faf99781.png" width="50%"></img>
-  <img src="https://user-images.githubusercontent.com/79648814/229045019-8d7e7d0c-aa71-4b60-bd4b-7dc94a597372.png" width="50%"></img>
-  <img src="https://user-images.githubusercontent.com/79648814/229044805-f97b655a-ae82-472f-a34a-f41ec0b26ecf.png" width="50%"></img>
-</div>
+### Componentes
+> lwc: `<c-call-app-service></c-call-app-service>`
+> <p></p>
+> js: 
+```
+import { LightningElement, api, wire } from 'lwc'; 
+import { subscribe, MessageContext } from 'lightning/messageService';
+import CallServiceChannel from '@salesforce/messageChannel/CallServiceChannel__c';
+export default class LwcBindings extends LightningElement 
+{   
+    @wire(MessageContext) messageContext;
+    
+    connectedCallback()
+    {
+        subscribe(
+            this.messageContext,
+            CallServiceChannel,
+            (call) => {
+                if(call.response.from == 'action-1') { this.handleCallToAction1(call.response); }
+                if(call.response.from == 'action-2') { this.handleCallToAction2(call.response); }
+            },
+            {}
+        );
+    }
+    
+    handleCallToAction1(response)
+    {
+        if(response.data)
+        {
+            console.log('This is my action 1 data: ' JSON.parse(response.data));
+        }
+        if(response.error)
+        {
+            console.log('Toast notification fired, and that's my action 1 error'); 
+        }
+    }
+    
+    callToAction1()
+    {
+        let callService = this.template.querySelector('c-call-app-service');
 
+        callService.cmp = 'action-1';
+        callService.call('Action1_Adapter', 'methodAction1', {
+          param1 : 'param1value', 
+          paramlist : ['item1', 'item2'],
+          paramJson : JSON.stringify(['item1', 'item2']) 
+        });
+    }
+}
+```
+> adapter:
+```
+public class Action1_Adapter extends APP_AbstractAdapter
+{
+    public override Map<String,String> configureMethodCatalog() 
+    {
+        return new Map<String,String> {
+            'methodAction1' => 'Action1_Adapter.MyMethod1_ADP',
+        };
+    }
+
+    public override Map<String,Object> configureParamsCatalog() 
+    {
+        // change
+        return new Map<String, Object> {
+            'methodAction1' => (new Map<String,String> { 'param1' => '', 'paramlist' => '', 'paramJson' => '' }),
+        };
+    }
+
+    public class MyMethod1_ADP extends APP_AbstractAdapter.CallerMethod
+    {
+        public override void callMethod(APP_AbstractAdapter adp, String methodName, Map<String,Object> params) 
+        {
+            adp.setNewResponseToMethod(
+                methodName, 
+                new MyService().myMethod1(
+                    (String) params.get('param1'),
+                    (List<Object>) params.get('paramlist'),
+                    (String) params.get('paramJson')
+                )
+            );
+        }
+    }
+}
+```
+> exception
+```
+public without sharing class MyService
+{
+    public class MyServiceExcpt extends APP_UserExceptionType {}
+    
+    public String myMethod1(String p1, List<Object> p2, String p3)
+    {
+        if(p1 != null) { throw new MyServiceExcpt().exception('You may not put those params here.', true); }
+        
+        return null;
+    }
+}
+```
