@@ -1,7 +1,7 @@
 # APP_
 ### Como usar os componentes
 > lwc: `<c-call-app-service></c-call-app-service>`
-> <p></p>
+<p></p>
 > js: 
 ```
 import { LightningElement, api, wire } from 'lwc'; 
