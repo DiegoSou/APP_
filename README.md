@@ -1,5 +1,5 @@
 # APP_
-### Componentes
+### Como usar os componentes
 > lwc: `<c-call-app-service></c-call-app-service>`
 > <p></p>
 > js: 
