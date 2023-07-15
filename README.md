@@ -1,5 +1,5 @@
 # APP_
-### Como usar os componentes
+### Separation of concerns
 > lwc: 
 ```
 <c-call-app-service></c-call-app-service>
