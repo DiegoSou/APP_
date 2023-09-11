@@ -28,7 +28,7 @@ public virtual without sharing class APP_TriggerDispatcher
         // se o mapeamento não tiver sido iniciado ainda
         if (contextHandlers.get(context) == null) 
         {
-			contextHandlers.put(context, new APP_TriggerHandlerIterator());
+            contextHandlers.put(context, new APP_TriggerHandlerIterator());
         }
         
         // cria a instancia da handler
@@ -40,8 +40,8 @@ public virtual without sharing class APP_TriggerDispatcher
             throw new APP_TriggerDispatcherException(handlerName + ' não implementa a interface APP_ITriggerHandler');
         }
         
-		// adiciona no contexto
-		contextHandlers.get(context).add((APP_ITriggerHandler) handlerInstance);
+        // adiciona no contexto
+        contextHandlers.get(context).add((APP_ITriggerHandler) handlerInstance);
         
         return this;
     }
@@ -53,7 +53,7 @@ public virtual without sharing class APP_TriggerDispatcher
         
         while (contextHandlers.get(triggerEvent.name()).hasNext())
         {
-        	contextHandlers.get(triggerEvent.name()).next()?.handle();
+            contextHandlers.get(triggerEvent.name()).next()?.handle();
         }
     }
 }

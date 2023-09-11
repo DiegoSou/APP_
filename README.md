@@ -100,3 +100,21 @@ public without sharing class MyService
     }
 }
 ```
+> trigger
+```
+trigger AccountTrigger on Account (
+    before insert, after insert,
+    before update, after update,
+    before delete, after delete,
+    after undelete) 
+{
+    (
+        new APP_TriggerDispatcher()
+        
+        .addHandlerInContext('before_insert', 'SecondAccountBeforeInsertHandler')
+        .addHandlerInContext('before_insert', 'AccountBeforeInsertHandler')
+        
+        .run(Trigger.operationType)
+    );
+}
+```
