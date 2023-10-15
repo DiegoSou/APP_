@@ -94,7 +94,7 @@ public without sharing class MyService
     
     public String myMethod1(String p1, List<Object> p2, String p3)
     {
-        if(p1 != null) { throw new MyServiceExcpt().exception('You may not put those params here.', true); }
+        if(p1 != null) { throw new MyServiceExcpt().exception('not put params here.', true); }
         
         return null;
     }
