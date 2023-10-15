@@ -122,9 +122,9 @@ trigger AccountTrigger on Account (
 ```
 public class SecondAccountBeforeInsertHandler implements APP_ITriggerHandler
 {
-	public void handle()
+    public void handle()
     {
-		List<Account> newList = Trigger.new;
+        List<Account> newList = Trigger.new;
         
         for(Account acc : newList)
         {
