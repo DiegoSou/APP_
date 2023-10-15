@@ -49,7 +49,7 @@ public without sharing class APP_StubProvider implements System.StubProvider
         List<String> listOfParamNames,
         List<Object> listOfArgs)
     { 
-        MethodCall calledMethod = new MethodCall(stubbedMethodName, returnType, listOfParamTypes, listOfParamNames);
+        MethodCall calledMethod = new MethodCall(stubbedMethodName, listOfParamTypes);
 
         for(MethodCall trackedMethod : this.methodCalls)
         {
@@ -76,11 +76,6 @@ public without sharing class APP_StubProvider implements System.StubProvider
         String methodName;
         
         /**
-         * return type of method
-         */
-        Type returnType;
-
-        /**
          * return value of method
          */
         Object returnValue;
@@ -89,11 +84,6 @@ public without sharing class APP_StubProvider implements System.StubProvider
          * list of parameter types 
          */
         List<Type> listOfParamTypes;
-
-        /**
-         * list of parameter names
-         */
-        List<String> listOfParamNames;
 
         /**
          * if the method throws an Exception
@@ -136,17 +126,11 @@ public without sharing class APP_StubProvider implements System.StubProvider
 
         /**
          * constructor to identify a method call by method arguments
-         * | methodName: String
-         * | returnType: Type
-         * | listOfParamTypes: List<Type>
-         * | listOfParamNames: List<String>
          */
-        public MethodCall(String methodName, Type returnType, List<Type> listOfParamTypes, List<String> listOfParamNames)
+        public MethodCall(String methodName, List<Type> listOfParamTypes)
         {
             this.methodName = methodName;
-            this.returnType = returnType;
             this.listOfParamTypes = listOfParamTypes;
-            this.listOfParamNames = listOfParamNames;
 
             this.simpleCompare = false;
         }
@@ -211,16 +195,6 @@ public without sharing class APP_StubProvider implements System.StubProvider
         private Boolean compareByArgs(MethodCall anotherMethodCall)
         {
             if (this.methodName != anotherMethodCall.methodName)
-            {
-                return false;
-            }
-
-            if (this.returnType.getName() != anotherMethodCall.returnType.getName())
-            {
-                return false;
-            }
-
-            if (String.join(this.listOfParamNames, ',') != String.join(anotherMethodCall.listOfParamNames, ','))
             {
                 return false;
             }

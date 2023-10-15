@@ -15,13 +15,14 @@ private class StubExampleDependentTest extends APP_TestContext
          APP_StubProvider.MethodCall integerGeneratorUniqueMethod = new APP_StubProvider.MethodCall('integerGeneratorUniqueMethod')
          .withReturnValue(1234);
 
-         APP_StubProvider.MethodCall getItsTrueWithoutParams = new APP_StubProvider.MethodCall('getItsTrue', Boolean.class, new List<Type>(), new List<String>())
+         APP_StubProvider.MethodCall getItsTrueWithoutParams = new APP_StubProvider.MethodCall('getItsTrue', new List<Type>())
          .withReturnValue(true);
 
-         APP_StubProvider.MethodCall getItsTrueWithStringParams = new APP_StubProvider.MethodCall('getItsTrue', String.class, new List<Type>{String.class}, new List<String>{'trueString'})
+         APP_StubProvider.MethodCall getItsTrueWithStringParams = new APP_StubProvider.MethodCall('getItsTrue', new List<Type>{String.class})
          .withReturnValue('this is a string return from stub');
 
-         APP_StubProvider.MethodCall getItsTrueWithBooleanParams = new APP_StubProvider.MethodCall('getItsTrue', Boolean.class, new List<Type>{Boolean.class}, new List<String>{'itsReallyTrue'});
+         APP_StubProvider.MethodCall getItsTrueWithBooleanParams = new APP_StubProvider.MethodCall('getItsTrue', new List<Type>{Boolean.class})
+         .withReturnValue(false);
  
          registerStubs(StubExample.class, new List<APP_StubProvider.MethodCall>
              {
@@ -92,7 +93,7 @@ private class StubExampleDependentTest extends APP_TestContext
     {   
         // GIVE
 
-        APP_StubProvider.MethodCall getItsTrueWithoutParams = new APP_StubProvider.MethodCall('getItsTrue', Boolean.class, new List<Type>(), new List<String>())
+        APP_StubProvider.MethodCall getItsTrueWithoutParams = new APP_StubProvider.MethodCall('getItsTrue', new List<Type>())
         .withReturnValue(true);
         
         registerStub(StubExample.class, getItsTrueWithoutParams);
@@ -114,7 +115,7 @@ private class StubExampleDependentTest extends APP_TestContext
     {   
         // GIVE
 
-        APP_StubProvider.MethodCall getItsTrueWithStringParams = new APP_StubProvider.MethodCall('getItsTrue', String.class, new List<Type>{String.class}, new List<String>{'trueString'})
+        APP_StubProvider.MethodCall getItsTrueWithStringParams = new APP_StubProvider.MethodCall('getItsTrue', new List<Type>{String.class})
         .withReturnValue('this is a string return from stub');
         
         registerStub(StubExample.class, getItsTrueWithStringParams);
@@ -136,7 +137,7 @@ private class StubExampleDependentTest extends APP_TestContext
     {   
         // GIVE
 
-        APP_StubProvider.MethodCall getItsTrueWithBooleanParams = new APP_StubProvider.MethodCall('getItsTrue', Boolean.class, new List<Type>{Boolean.class}, new List<String>{'itsReallyTrue'})
+        APP_StubProvider.MethodCall getItsTrueWithBooleanParams = new APP_StubProvider.MethodCall('getItsTrue', new List<Type>{Boolean.class})
         .withReturnValue(false);
         
         registerStub(StubExample.class, getItsTrueWithBooleanParams);
