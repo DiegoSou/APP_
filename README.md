@@ -118,3 +118,18 @@ trigger AccountTrigger on Account (
     );
 }
 ```
+> handler
+```
+public class SecondAccountBeforeInsertHandler implements APP_ITriggerHandler
+{
+	public void handle()
+    {
+		List<Account> newList = Trigger.new;
+        
+        for(Account acc : newList)
+        {
+            System.debug('Account ' + acc.Name);
+        }
+    }
+}
+```
