@@ -102,34 +102,13 @@ public without sharing class MyService
 ```
 > trigger
 ```
-trigger AccountTrigger on Account (
-    before insert, after insert,
-    before update, after update,
-    before delete, after delete,
-    after undelete) 
-{
-    (
-        new APP_TriggerDispatcher()
-        
-        .addHandlerInContext('before_insert', 'SecondAccountBeforeInsertHandler')
-        .addHandlerInContext('before_insert', 'AccountBeforeInsertHandler')
-        
-        .run(Trigger.operationType)
-    );
-}
+// você encontra esse exemplo na pasta "triggers"
 ```
 > handler
 ```
-public class SecondAccountBeforeInsertHandler implements APP_ITriggerHandler
-{
-    public void handle()
-    {
-        List<Account> newList = Trigger.new;
-        
-        for(Account acc : newList)
-        {
-            System.debug('Account ' + acc.Name);
-        }
-    }
-}
+// você encontra esse exemplo na pasta "classes"
+```
+>test stub
+```
+// você encontra esse exemplo na pasta "classes"
 ```
