@@ -7,7 +7,7 @@ private class StubExampleDependentTest extends APP_TestContext
     //
 
     /**
-     public static void stubExampleStub()
+     public static void stubExampleStub() 
      {
          APP_StubProvider.MethodCall getAnException = new APP_StubProvider.MethodCall('getAnException')
          .withThrowException(StubExample.StubExampleException.class, 'throws stubbed exception type');
@@ -67,7 +67,7 @@ private class StubExampleDependentTest extends APP_TestContext
     }
 
     @IsTest
-    static void integerGeneratorUniqueMethodTest()
+    static void integerGeneratorUniqueMethodTest() 
     {  
         // GIVE
 
