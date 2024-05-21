@@ -1,11 +1,11 @@
 # APP_
 #### utilizando a app
 > lwc: 
-```
+```html
 <c-call-app-service></c-call-app-service>
 ```
 > js: 
-```
+```javascript
 import { LightningElement, api, wire } from 'lwc'; 
 import { subscribe, MessageContext } from 'lightning/messageService';
 import CallServiceChannel from '@salesforce/messageChannel/CallServiceChannel__c';
@@ -52,7 +52,7 @@ export default class LwcBindings extends LightningElement
 }
 ```
 > adapter:
-```
+```java
 public class Action1_Adapter extends APP_AbstractAdapter
 {
     public override Map<String,String> configureMethodCatalog() 
@@ -87,7 +87,7 @@ public class Action1_Adapter extends APP_AbstractAdapter
 }
 ```
 > exception
-```
+```java
 public without sharing class MyService
 {
     public class MyServiceExcpt extends APP_UserExceptionType {}
@@ -101,11 +101,11 @@ public without sharing class MyService
 }
 ```
 > trigger
-```
+```java
 // você encontra esse exemplo na pasta "triggers"
 ```
 > handler
-```
+```java
 // você encontra esse exemplo na pasta "classes"
 ```
 >test stub
