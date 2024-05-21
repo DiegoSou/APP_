@@ -109,6 +109,6 @@ public without sharing class MyService
 // você encontra esse exemplo na pasta "classes"
 ```
 >test stub
-```
+```java
 // você encontra esse exemplo na pasta "classes"
 ```
